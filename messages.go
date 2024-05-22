@@ -11,6 +11,13 @@ const (
 	messagesSuffix = "messages"
 )
 
+type MessageAttachmentToolType string
+
+const (
+	MessageAttachmentToolTypeCodeInterpreter MessageAttachmentToolType = "code_interpreter"
+	MessageAttachmentToolTypeFileSearch      MessageAttachmentToolType = "file_search"
+)
+
 type Message struct {
 	ID          string           `json:"id"`
 	Object      string           `json:"object"`
@@ -52,10 +59,20 @@ type ImageFile struct {
 }
 
 type MessageRequest struct {
-	Role     string         `json:"role"`
-	Content  string         `json:"content"`
-	FileIds  []string       `json:"file_ids,omitempty"` //nolint:revive // backwards-compatibility
-	Metadata map[string]any `json:"metadata,omitempty"`
+	Role        string              `json:"role"`
+	Content     string              `json:"content"`
+	FileIds     []string            `json:"file_ids,omitempty"` //nolint:revive // backwards-compatibility
+	Attachments []MessageAttachment `json:"attachments,omitempty"`
+	Metadata    map[string]any      `json:"metadata,omitempty"`
+}
+
+type MessageAttachment struct {
+	FileID string                  `json:"file_id"`
+	Tools  []MessageAttachmentTool `json:"tools,omitempty"`
+}
+
+type MessageAttachmentTool struct {
+	Type MessageAttachmentToolType `json:"type"`
 }
 
 type MessageFile struct {
