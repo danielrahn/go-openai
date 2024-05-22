@@ -19,8 +19,23 @@ type Thread struct {
 }
 
 type ThreadRequest struct {
-	Messages []ThreadMessage `json:"messages,omitempty"`
-	Metadata map[string]any  `json:"metadata,omitempty"`
+	Messages      []ThreadMessage     `json:"messages,omitempty"`
+	ToolResources ThreadToolResources `json:"tool_resources,omitempty"`
+	Metadata      map[string]any      `json:"metadata,omitempty"`
+}
+
+type ThreadToolResources struct {
+	FileSearch ThreadToolResourcesFileSearch `json:"file_search,omitempty"`
+}
+
+type ThreadToolResourcesFileSearch struct {
+	VectorStoreIDs []string                                   `json:"vector_store_ids,omitempty"`
+	VectorStores   []ThreadToolResourcesFileSearchVectorStore `json:"vector_stores,omitempty"`
+}
+
+type ThreadToolResourcesFileSearchVectorStore struct {
+	FileIDs  []string       `json:"file_ids,omitempty"`
+	Metadata map[string]any `json:"metadata,omitempty"`
 }
 
 type ModifyThreadRequest struct {
