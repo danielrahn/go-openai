@@ -34,9 +34,27 @@ type ThreadToolResourcesFileSearch struct {
 }
 
 type ThreadToolResourcesFileSearchVectorStore struct {
-	FileIDs  []string       `json:"file_ids,omitempty"`
-	Metadata map[string]any `json:"metadata,omitempty"`
+	FileIDs          []string          `json:"file_ids,omitempty"`
+	ChunkingStrategy *ChunkingStrategy `json:"chunking_strategy,omitempty"`
+	Metadata         map[string]any    `json:"metadata,omitempty"`
 }
+
+type ChunkingStrategy struct {
+	Type   ChunkingStrategyType    `json:"type"`
+	Static *StaticChunkingStrategy `json:"static,omitempty"`
+}
+
+type StaticChunkingStrategy struct {
+	MaxChunkSizeTokens int `json:"max_chunk_size_tokens"`
+	ChunkOverlapTokens int `json:"chunk_overlap_tokens"`
+}
+
+type ChunkingStrategyType string
+
+const (
+	ChunkingStrategyTypeAuto   ChunkingStrategyType = "auto"
+	ChunkingStrategyTypeStatic ChunkingStrategyType = "static"
+)
 
 type ModifyThreadRequest struct {
 	Metadata map[string]any `json:"metadata"`
