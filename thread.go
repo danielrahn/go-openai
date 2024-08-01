@@ -19,13 +19,13 @@ type Thread struct {
 }
 
 type ThreadRequest struct {
-	Messages      []ThreadMessage     `json:"messages,omitempty"`
-	ToolResources ThreadToolResources `json:"tool_resources,omitempty"`
-	Metadata      map[string]any      `json:"metadata,omitempty"`
+	Messages      []ThreadMessage      `json:"messages,omitempty"`
+	ToolResources *ThreadToolResources `json:"tool_resources,omitempty"`
+	Metadata      map[string]any       `json:"metadata,omitempty"`
 }
 
 type ThreadToolResources struct {
-	FileSearch ThreadToolResourcesFileSearch `json:"file_search,omitempty"`
+	FileSearch *ThreadToolResourcesFileSearch `json:"file_search,omitempty"`
 }
 
 type ThreadToolResourcesFileSearch struct {
